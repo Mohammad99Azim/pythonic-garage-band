@@ -2,82 +2,76 @@ from abc import abstractmethod
 
 
 class Musician:
-    members = []
-
-
-class Band(Musician):
+    instances = []
 
     def __init__(self, name, members):
         self.name = name
         self.members = members
-
-    @abstractmethod
-    def play_solo(self):
-        pass
-
-    @abstractmethod
-    def get_instrument(self):
-        pass
+        self.instances.append(self)
 
     def __str__(self):
-        return str(f"My name is {self.name} and I play {self.instrument}")
+        return str(f"My name is {self.name} and I play {self.machine}")
 
     def __repr__(self):
-        return f"{self.job} instance. Name = {self.name}"
+        return f'{self.job} instance. Name = {self.name}'
+
+    def get_instrument(self):
+        return self.machine
+
+    def play_solo(self):
+        return self.playing
+
+
+class Band(Musician):
+    # instances = []
+    #
+    # def __init__(self, name, members):
+    #     self.name = name
+    #     self.members = members
+    #     self.instances.append(self)
+
+    # def __str__(self):
+    #     return str(f"My name is {self.name} and I play {self.machine}")
+    #
+    # def __repr__(self):
+    #     return f'{self.job} instance. Name = {self.name}'
+
+    # def play_solo(self):
+    #     return self.playing
+
+    def play_solos(self):
+        play_list = []
+        for solo in self.members:
+            play_list.append(solo.play_solo())
+        return play_list
 
     @classmethod
     def to_list(cls):
-        pass
+        return cls.instances
+
+    # def get_instrument(self):
+    #     return self.machine
 
 
 class Guitarist(Band):
     def __init__(self, name):
         self.name = name
-        self.instrument = "guitar"
+        self.machine = "guitar"
         self.job = "Guitarist"
-
-    def get_instrument(self):
-        return 'guitar'
-
-    def play_solo(self):
-        return "face melting guitar solo"
-
-
-class Bassist(Band):
-    def __init__(self, name):
-        self.name = name
-        self.instrument = "bass"
-        self.job = "Bassist"
-
-    def get_instrument(self):
-        return 'bass'
-
-    def play_solo(self):
-        return "bom bom buh bom"
+        self.playing = "face melting guitar solo"
 
 
 class Drummer(Band):
     def __init__(self, name):
         self.name = name
-        self.instrument = "drums"
+        self.machine = "drums"
         self.job = "Drummer"
-
-    def get_instrument(self):
-        return 'drums'
-
-    def play_solo(self):
-        return "rattle boom crash"
+        self.playing = "rattle boom crash"
 
 
-if __name__ == "__main__":
-    nirvana = Band("Nirvana", [])
-    print(nirvana.name)
-
-# def __init__(self, name):
-#     self.name = name
-#
-# def __str__(self):
-#     return str(f"My name is {self.name} and I play guitar")
-#
-# def __repr__(self):
-#     return f"Guitarist instance. Name = {self.name}:
+class Bassist(Band):
+    def __init__(self, name):
+        self.name = name
+        self.machine = "bass"
+        self.job = "Bassist"
+        self.playing = "bom bom buh bom"
