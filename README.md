@@ -6,4 +6,4 @@
 - [Code: madlib](https://github.com/Mohammad99Azim/pythonic-garage-band/blob/main/pythonic_garage_band/band.py)
 - [Tests: test_madlib](https://github.com/Mohammad99Azim/pythonic-garage-band/blob/main/tests/test_band.py)
 
-**Important   the commented code in the Band class meain it will inheart it from Musician class**
+**Important   the commented code in the Band class mean it will inheart it from Musician class**
