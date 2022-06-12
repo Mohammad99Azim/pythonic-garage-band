@@ -8,9 +8,8 @@ from pythonic_garage_band.band import (
     Musician,
     Guitarist,
     Bassist,
-    Drummer,
+    Drummer, Keyboardist
 )
-
 
 
 def test_guitarist_str():
@@ -20,13 +19,11 @@ def test_guitarist_str():
     assert actual == expected
 
 
-
 def test_guitarist_repr():
     joan = Guitarist("Joan Jett")
     actual = repr(joan)
     expected = "Guitarist instance. Name = Joan Jett"
     assert actual == expected
-
 
 
 def test_drummer_str():
@@ -36,13 +33,11 @@ def test_drummer_str():
     assert actual == expected
 
 
-
 def test_drummer_repr():
     sheila = Drummer("Sheila E.")
     actual = repr(sheila)
     expected = "Drummer instance. Name = Sheila E."
     assert actual == expected
-
 
 
 def test_bassist_str():
@@ -52,13 +47,11 @@ def test_bassist_str():
     assert actual == expected
 
 
-
 def test_bassist_repr():
     meshell = Bassist("Meshell Ndegeocello")
     actual = repr(meshell)
     expected = "Bassist instance. Name = Meshell Ndegeocello"
     assert actual == expected
-
 
 
 def test_band_name():
@@ -67,12 +60,10 @@ def test_band_name():
     assert nirvana.name == "Nirvana"
 
 
-
 def test_guitarist():
     jimi = Guitarist("Jimi Hendrix")
     assert jimi.name == "Jimi Hendrix"
     assert jimi.get_instrument() == "guitar"
-
 
 
 def test_bassist():
@@ -81,12 +72,10 @@ def test_bassist():
     assert flea.get_instrument() == "bass"
 
 
-
 def test_drummer():
     ginger = Drummer("Ginger Baker")
     assert ginger.name == "Ginger Baker"
     assert ginger.get_instrument() == "drums"
-
 
 
 def test_instruments(one_band):
@@ -94,7 +83,6 @@ def test_instruments(one_band):
     for i, member in enumerate(one_band.members):
         # NOTE: see stretch goal where zip used
         assert member.get_instrument() == instruments[i]
-
 
 
 def test_individual_solos(one_band):
@@ -107,9 +95,7 @@ def test_individual_solos(one_band):
             assert member.play_solo() == "rattle boom crash"
 
 
-
 def test_band_members(one_band):
-
     assert len(one_band.members) == 3
 
     assert isinstance(one_band.members[0], Musician)
@@ -125,7 +111,6 @@ def test_band_members(one_band):
     assert one_band.members[2].name == "Dave Grohl"
 
 
-
 def test_play_solos_for_whole_band(one_band):
     solos = one_band.play_solos()
     assert len(solos) == 3
@@ -139,7 +124,6 @@ def test_class_tracks_instances():
     the_nobodies = Band("The Nobodies", [])
     assert len(Band.instances) == 1
     assert Band.instances[0] == the_nobodies
-
 
 
 def test_to_list():
@@ -195,8 +179,6 @@ def clean():
 # Stretch
 #######################
 
-
-
 def test_from_file():
     with open("assets/bands.json") as f:
         bands = json.loads(f.read())
@@ -210,7 +192,6 @@ def test_from_file():
     assert nirvana.name == "Nirvana"
 
 
-
 def test_from_yaml():
     bands = yaml.safe_load(open("assets/bands.yml"))
 
@@ -219,18 +200,17 @@ def test_from_yaml():
     assert bands[1]["name"] == "The Pixies"
 
 
-
 def test_abstract_musician():
     with pytest.raises(TypeError):
         Musician("nobody", "nothing", "silence")
 
 
-@pytest.mark.skip("stretch")
 def test_incomplete_keyboardist():
     with pytest.raises(TypeError) as e:
         Keyboardist("Booker T. Jones")
 
     assert (
-        repr(e)
-        == """<ExceptionInfo TypeError("Can't instantiate abstract class Keyboardist with abstract method some_method_that_must_be_implemented_in_base_class") tblen=1>"""  # noqa: E501
+            repr(e)
+            == """<ExceptionInfo TypeError("Can't instantiate abstract class Keyboardist with abstract method some_method_that_must_be_implemented_in_base_class") tblen=1>"""
+        # noqa: E501
     )

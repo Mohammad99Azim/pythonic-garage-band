@@ -1,7 +1,7 @@
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 
 
-class Musician:
+class Musician(ABC):
     instances = []
 
     def __init__(self, name, members):
@@ -21,14 +21,18 @@ class Musician:
     def play_solo(self):
         return self.playing
 
+    @abstractmethod
+    def some_method_that_must_be_implemented_in_base_class(self):
+        pass
 
-class Band(Musician):
-    # instances = []
-    #
-    # def __init__(self, name, members):
-    #     self.name = name
-    #     self.members = members
-    #     self.instances.append(self)
+
+class Band:
+    instances = []
+
+    def __init__(self, name, members):
+        self.name = name
+        self.members = members
+        self.instances.append(self)
 
     # def __str__(self):
     #     return str(f"My name is {self.name} and I play {self.machine}")
@@ -53,25 +57,38 @@ class Band(Musician):
     #     return self.machine
 
 
-class Guitarist(Band):
+
+class Guitarist(Musician):
     def __init__(self, name):
         self.name = name
         self.machine = "guitar"
         self.job = "Guitarist"
         self.playing = "face melting guitar solo"
 
+    def some_method_that_must_be_implemented_in_base_class(self):
+        pass
 
-class Drummer(Band):
+class Drummer(Musician):
     def __init__(self, name):
         self.name = name
         self.machine = "drums"
         self.job = "Drummer"
         self.playing = "rattle boom crash"
 
+    def some_method_that_must_be_implemented_in_base_class(self):
+        pass
 
-class Bassist(Band):
+
+class Bassist(Musician):
     def __init__(self, name):
         self.name = name
         self.machine = "bass"
         self.job = "Bassist"
         self.playing = "bom bom buh bom"
+
+    def some_method_that_must_be_implemented_in_base_class(self):
+        pass
+
+
+class Keyboardist(Musician):
+    pass
